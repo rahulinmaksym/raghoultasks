@@ -1,7 +1,9 @@
-package com.raghoul.raghoultasks.Service;
+package com.raghoul.raghoultasks.Service.task;
 
-import com.raghoul.raghoultasks.entity.Task;
-import com.raghoul.raghoultasks.repository.TaskRepo;
+import com.raghoul.raghoultasks.dto.task.TaskDto;
+import com.raghoul.raghoultasks.entity.task.Task;
+import com.raghoul.raghoultasks.mapper.task.TaskMapper;
+import com.raghoul.raghoultasks.repository.task.TaskRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
@@ -17,9 +19,10 @@ import java.util.UUID;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepo taskRepo;
+    private final TaskMapper taskMapper;
 
-    public ResponseEntity<List<Task>> getAll() {
-        List<Task> tasks = taskRepo.findAll();
+    public ResponseEntity<List<TaskDto>> getAll() {
+        List<TaskDto> tasks = taskMapper.taskListToTaskDtoList(taskRepo.findAll());
         if(tasks.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatusCode.valueOf(404))
@@ -28,8 +31,8 @@ public class TaskServiceImpl implements TaskService {
         return ResponseEntity.ok(tasks);
     }
 
-    public ResponseEntity<Task> getById(UUID id) {
-        Task task = taskRepo.findById(id).orElse(null);
+    public ResponseEntity<TaskDto> getById(UUID id) {
+        TaskDto task = taskMapper.taskToTaskDto(taskRepo.findById(id).orElse(null));
         if(task == null) {
             return ResponseEntity
                     .status(HttpStatusCode.valueOf(404))
@@ -38,8 +41,8 @@ public class TaskServiceImpl implements TaskService {
         return ResponseEntity.ok(task);
     }
 
-    public ResponseEntity<List<Task>> getByOwnerId(UUID ownerId) {
-        List<Task> tasks = taskRepo.findByOwnerId(ownerId);
+    public ResponseEntity<List<TaskDto>> getByOwnerId(UUID ownerId) {
+        List<TaskDto> tasks = taskMapper.taskListToTaskDtoList(taskRepo.findByOwnerId(ownerId));
         if(tasks.isEmpty()) {
             return ResponseEntity
                     .notFound()
@@ -48,7 +51,10 @@ public class TaskServiceImpl implements TaskService {
         return ResponseEntity.ok(tasks);
     }
 
-    public ResponseEntity<Task> save(Task task) {
+    public ResponseEntity<TaskDto> save(TaskDto task) {
+
+        Task entity = taskMapper.taskDtoToTask(task);
+
         if(task == null) {
             return ResponseEntity
                     .status(HttpStatusCode.valueOf(404))
@@ -71,6 +77,6 @@ public class TaskServiceImpl implements TaskService {
         }
         task.setOwnerId(ownerId);
 
-        return ResponseEntity.ok(taskRepo.save(task));
+        return ResponseEntity.ok(taskMapper.taskToTaskDto(taskRepo.save(entity)));
     }
 }

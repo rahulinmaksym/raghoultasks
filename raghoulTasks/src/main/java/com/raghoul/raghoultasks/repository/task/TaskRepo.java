@@ -1,6 +1,6 @@
-package com.raghoul.raghoultasks.repository;
+package com.raghoul.raghoultasks.repository.task;
 
-import com.raghoul.raghoultasks.entity.Task;
+import com.raghoul.raghoultasks.entity.task.Task;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

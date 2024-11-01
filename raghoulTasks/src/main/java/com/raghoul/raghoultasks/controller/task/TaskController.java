@@ -1,7 +1,7 @@
-package com.raghoul.raghoultasks.controller;
+package com.raghoul.raghoultasks.controller.task;
 
-import com.raghoul.raghoultasks.Service.TaskService;
-import com.raghoul.raghoultasks.entity.Task;
+import com.raghoul.raghoultasks.Service.task.TaskService;
+import com.raghoul.raghoultasks.dto.task.TaskDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,17 +18,17 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Task>> getAllTasks() {
+    public ResponseEntity<List<TaskDto>> getAllTasks() {
         return taskService.getAll();
     }
 
     @GetMapping
-    public ResponseEntity<Task> getTaskById(@RequestParam UUID id) {
+    public ResponseEntity<TaskDto> getTaskById(@RequestParam UUID id) {
         return taskService.getById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+    public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto task) {
         return taskService.save(task);
     }
 }

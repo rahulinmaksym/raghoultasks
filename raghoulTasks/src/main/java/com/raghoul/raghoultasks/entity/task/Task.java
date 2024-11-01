@@ -1,4 +1,4 @@
-package com.raghoul.raghoultasks.entity;
+package com.raghoul.raghoultasks.entity.task;
 
 import lombok.Getter;
 import lombok.Setter;
