@@ -1,4 +1,4 @@
-package com.raghoul.raghoultasks.Service.task;
+package com.raghoul.raghoultasks.service.task;
 
 import com.raghoul.raghoultasks.dto.task.TaskDto;
 import org.springframework.http.ResponseEntity;

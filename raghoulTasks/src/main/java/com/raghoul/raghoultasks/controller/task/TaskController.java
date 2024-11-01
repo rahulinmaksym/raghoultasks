@@ -1,6 +1,6 @@
 package com.raghoul.raghoultasks.controller.task;
 
-import com.raghoul.raghoultasks.Service.task.TaskService;
+import com.raghoul.raghoultasks.service.task.TaskService;
 import com.raghoul.raghoultasks.dto.task.TaskDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

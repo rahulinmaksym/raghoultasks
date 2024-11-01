@@ -2,7 +2,7 @@ package com.raghoul.raghoultasks.dto.user;
 
 import lombok.*;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Setter
@@ -13,10 +13,16 @@ import java.util.UUID;
 @ToString
 public class UserDto {
     UUID id;
-    String name;
+    String username;
     String email;
     String password;
     Boolean enabled;
-    Integer verificationCode;
-    Timestamp verificationExpireDate;
+    String verificationCode;
+    LocalDateTime verificationCodeExpireAt;
+
+    UserDto(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }
