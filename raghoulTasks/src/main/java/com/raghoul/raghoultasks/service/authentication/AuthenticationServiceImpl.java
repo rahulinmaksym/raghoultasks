@@ -111,7 +111,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         try {
             emailService.sendVerificationEmail(userDto.getEmail(), subject, htmlMessage);
         } catch (MessagingException e) {
-            resendVerificationCode(userDto.getEmail());
+            throw new RuntimeException(e.getMessage());
         }
     }
 

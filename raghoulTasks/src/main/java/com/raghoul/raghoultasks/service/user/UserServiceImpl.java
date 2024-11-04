@@ -4,11 +4,11 @@ import com.raghoul.raghoultasks.dto.user.UserDto;
 import com.raghoul.raghoultasks.entity.user.User;
 import com.raghoul.raghoultasks.mapper.user.UserMapper;
 import com.raghoul.raghoultasks.repository.user.UserRepo;
-import com.raghoul.raghoultasks.service.authentication.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -31,5 +31,9 @@ public class UserServiceImpl implements UserService {
 
     public UserDto save(UserDto input) {
         return userMapper.userToUserDto(userRepo.save(userMapper.userDtoToUser(input)));
+    }
+
+    public List<UserDto> getAll() {
+        return userMapper.userListToUserDtoList(userRepo.findAll());
     }
 }

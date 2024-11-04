@@ -1,5 +1,6 @@
 package com.raghoul.raghoultasks.config;
 
+import com.raghoul.raghoultasks.mapper.user.UserMapper;
 import com.raghoul.raghoultasks.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class ApplicationConfig {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @Bean
     UserDetailsService userDetailsService() {
-        return userService::getUserByEmail;
+        return username -> userMapper.userDtoToUser(userService.getUserByEmail(username));
     }
 
     @Bean
