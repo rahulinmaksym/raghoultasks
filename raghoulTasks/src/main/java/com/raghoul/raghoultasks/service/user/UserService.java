@@ -1,8 +1,9 @@
 package com.raghoul.raghoultasks.service.user;
 
-import com.raghoul.raghoultasks.entity.user.User;
+import com.raghoul.raghoultasks.dto.user.UserDto;
 
 public interface UserService {
 
-    User getUserByEmail(String email);
+    UserDto getUserByEmail(String email);
+    UserDto save(UserDto input);
 }

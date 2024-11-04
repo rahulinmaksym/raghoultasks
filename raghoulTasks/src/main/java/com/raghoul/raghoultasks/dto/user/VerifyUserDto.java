@@ -9,7 +9,6 @@ import lombok.*;
 @Builder
 @ToString
 public class VerifyUserDto {
-
     private String email;
     private String verificationCode;
 }
