@@ -10,14 +10,11 @@ import com.raghoul.raghoultasks.service.authentication.AuthenticationService;
 import com.raghoul.raghoultasks.service.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/v1/auth")
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/auth")
 public class AuthenticationController {
 
     private final JwtService jwtService;
@@ -25,6 +22,7 @@ public class AuthenticationController {
     private final UserMapper userMapper;
 
     @PostMapping("/signup")
+    @CrossOrigin
     public ResponseEntity<UserDto> register(@RequestBody RegisterUserDto registerUserDto) {
         UserDto userDto = authenticationService.signUp(registerUserDto);
         return ResponseEntity.ok(userDto);

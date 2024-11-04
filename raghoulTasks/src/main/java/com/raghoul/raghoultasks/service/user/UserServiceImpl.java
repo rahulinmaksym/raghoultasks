@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -30,7 +31,18 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserDto save(UserDto input) {
-        return userMapper.userToUserDto(userRepo.save(userMapper.userDtoToUser(input)));
+
+        User user = userMapper.userDtoToUser(input);
+
+        UUID id = null;
+        boolean isUnique = false;
+        while(!isUnique) {
+            id = UUID.randomUUID();
+            isUnique = !userRepo.existsById(id);
+        }
+        user.setId(id);
+
+        return userMapper.userToUserDto(userRepo.save(user));
     }
 
     public List<UserDto> getAll() {

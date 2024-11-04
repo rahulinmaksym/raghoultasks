@@ -1,6 +1,7 @@
 package com.raghoul.raghoultasks.service.task;
 
 import com.raghoul.raghoultasks.dto.task.TaskDto;
+import com.raghoul.raghoultasks.entity.task.Task;
 import com.raghoul.raghoultasks.mapper.task.TaskMapper;
 import com.raghoul.raghoultasks.repository.task.TaskRepo;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,26 @@ public class TaskServiceImpl implements TaskService {
         return taskMapper.taskListToTaskDtoList(taskRepo.findByOwnerId(ownerId));
     }
 
-    public TaskDto save(TaskDto task) {
-        return taskMapper.taskToTaskDto(taskRepo.save(taskMapper.taskDtoToTask(task)));
+    public TaskDto save(TaskDto input) {
+
+        Task task = taskMapper.taskDtoToTask(input);
+
+        UUID id = null;
+        boolean isUnique = false;
+        while(!isUnique) {
+            id = UUID.randomUUID();
+            isUnique = !taskRepo.existsById(id);
+        }
+        task.setId(id);
+
+        UUID ownerId = null;
+        isUnique = false;
+        while(!isUnique) {
+            ownerId = UUID.randomUUID();
+            isUnique = !taskRepo.existsByOwnerId(ownerId);
+        }
+        task.setOwnerId(ownerId);
+
+        return taskMapper.taskToTaskDto(taskRepo.save(task));
     }
 }
