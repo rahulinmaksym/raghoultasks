@@ -1,4 +1,4 @@
-package com.raghoul.raghoultasks.entity.task;
+package com.raghoul.raghoultasks.entity.comment;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,18 +15,21 @@ import java.util.UUID;
 @Setter
 @ToString
 @Document
-public class Task {
+public class Comment {
 
     @Id
     private UUID id;
 
     @NotNull
-    private String name;
-
-    private String description;
+    private String comment;
 
     @NotNull
-    private UUID ownerId;
+    private LocalDateTime creationDate;
 
-    private List<UUID> followersIds;
+    @NotNull
+    private UUID authorId;
+
+    private List<UUID> likedIds;
+
+    private List<UUID> dislikedIds;
 }
